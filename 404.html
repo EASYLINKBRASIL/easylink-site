@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página não encontrada | easylink</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b0f18;color:#dce8f0;font-family:Montserrat,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 5%;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
+.logo{font-size:24px;font-weight:900;text-decoration:none;color:#dce8f0;letter-spacing:-1px;margin-bottom:48px;display:block}
+.logo span{color:#38b6ff}
+.num{font-size:clamp(100px,20vw,180px);font-weight:900;letter-spacing:-8px;line-height:1;background:linear-gradient(135deg,#38b6ff,#1a8ab5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+h1{font-size:clamp(20px,3vw,32px);font-weight:800;margin:16px 0 12px;letter-spacing:-0.5px}
+p{color:#6e8a9e;font-size:15px;max-width:420px;line-height:1.7;margin-bottom:36px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-p{background:#38b6ff;color:#060d14;padding:13px 28px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s}
+.btn-p:hover{opacity:.85}
+.btn-g{border:1px solid rgba(56,182,255,0.28);color:#dce8f0;padding:13px 28px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;transition:border-color .2s}
+.btn-g:hover{border-color:rgba(56,182,255,0.6)}
+.signal{margin:32px auto 0;display:flex;align-items:flex-end;gap:4px;height:32px;justify-content:center}
+.bar{width:8px;border-radius:3px;background:#38b6ff;animation:signal 1.2s ease-in-out infinite}
+.bar:nth-child(1){height:8px;animation-delay:0s;opacity:.3}
+.bar:nth-child(2){height:16px;animation-delay:.15s;opacity:.5}
+.bar:nth-child(3){height:24px;animation-delay:.3s;opacity:.7}
+.bar:nth-child(4){height:32px;animation-delay:.45s;opacity:1}
+@keyframes signal{0%,100%{opacity:.2}50%{opacity:1}}
+</style>
+</head>
+<body>
+<a href="/" class="logo"><span>easy</span>link</a>
+<div class="num">404</div>
+<h1>Página não encontrada</h1>
+<p>Parece que a conexão caiu por aqui! Essa página não existe ou foi removida. Mas não se preocupe — na easylink a queda é só desta página.</p>
+<div class="btns">
+  <a href="/" class="btn-p">← Voltar para o início</a>
+  <a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Preciso de ajuda." class="btn-g" target="_blank">Falar com a equipe</a>
+</div>
+<div class="signal">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+</body>
+</html>
