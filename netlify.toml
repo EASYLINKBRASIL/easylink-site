@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+
+[[plugins]]
+  package = "@netlify/plugin-identity"
+
+[context.production.environment]
+  NODE_VERSION = "18"

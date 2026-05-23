@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/blog"
+public_folder: "/images/blog"
+
+locale: 'pt'
+
+collections:
+  - name: "posts"
+    label: "Artigos do Blog"
+    folder: "_posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Categoria", name: "category", widget: "select", options: ["Internet para Eventos", "Wi-Fi Profissional", "Starlink", "Link Dedicado", "Dicas Técnicas"] }
+      - { label: "Resumo", name: "excerpt", widget: "string" }
+      - { label: "Tempo de leitura (min)", name: "readtime", widget: "number", default: 5 }
+      - { label: "Conteúdo", name: "body", widget: "markdown" }
