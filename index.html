@@ -273,6 +273,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
 </script>
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAAAIAANAQAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAAQAAAAEAgGAAAAH/P/YQAAANRJREFUeJxjZGBgYODik/jPQAb49ukFIyO5mmGAiRLNg8MAFmyCPFpWDBIRFQwccloM/358Zfh0djfD86VNDH+/fSLsAnYJJQaFiqUM///+ZbieZcTwZFYJg5BzNINUYitxLuA1cmFgYuNg4Na0YNCedxPhKm0b4gxgZGRkYGBgYHi1YRLDixXtWDXh9cKn83sY/v/+ySBoF8bALq1K0ACsCYlH24ZBPKyMgUNOg4GZk5eBgYGB4cORdQyPpmQTZwApYOATEuUGfPv0gpFczd8+vWAEABvoNpRMXGTIAAAAAElFTkSuQmCC">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">emailjs.init("FCl0rqr7Pa53YxQnd");</script>
 </head>
 <body>
 
@@ -704,37 +706,38 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(
 function enviarForm(e){
   e.preventDefault();
   const f = e.target;
-  const get = id => f.querySelector('#' + id) ? f.querySelector('#' + id).value : '';
-  const getS = sel => { const el = f.querySelectorAll(sel); return el.length ? [...el].map(x=>x.value).join(', ') : ''; };
+  const btn = f.querySelector('.btn-send');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
 
   const nome     = f.querySelectorAll('input[type=text]')[0]?.value || '';
   const empresa  = f.querySelectorAll('input[type=text]')[1]?.value || '';
   const email    = f.querySelector('input[type=email]')?.value || '';
-  const wpp      = f.querySelector('input[type=tel]')?.value || '';
+  const whatsapp = f.querySelector('input[type=tel]')?.value || '';
   const selects  = f.querySelectorAll('select');
   const tipo     = selects[0]?.value || '';
   const solucao  = selects[1]?.value || '';
   const data     = f.querySelector('input[type=date]')?.value || '';
   const pessoas  = selects[2]?.value || '';
-  const msg      = f.querySelector('textarea')?.value || '';
+  const mensagem = f.querySelector('textarea')?.value || '';
 
-  const texto = `Olá! Tenho interesse em contratar internet para meu evento.
+  const params = {nome, empresa, email, whatsapp, tipo, solucao, data, pessoas, mensagem};
 
-👤 *Nome:* ${nome}
-🏢 *Empresa:* ${empresa}
-📧 *E-mail:* ${email}
-📱 *WhatsApp:* ${wpp}
-🎪 *Tipo de evento:* ${tipo}
-💡 *Solução de interesse:* ${solucao}
-📅 *Data do evento:* ${data}
-👥 *Nº de pessoas:* ${pessoas}
-📝 *Detalhes:* ${msg}`;
+  emailjs.send('service_30k72a7', 'template_0wzijs8', params)
+    .then(function(){
+      f.style.display='none';
+      document.getElementById('form-ok').style.display='block';
+    })
+    .catch(function(err){
+      console.error('EmailJS error:', err);
+      btn.textContent = '📋 Enviar solicitação de orçamento';
+      btn.disabled = false;
+      alert('Erro ao enviar. Por favor, entre em contato pelo WhatsApp.');
+    });
 
-  const url = 'https://api.whatsapp.com/send?phone=551141936140&text=' + encodeURIComponent(texto);
-  window.open(url, '_blank');
-
-  e.target.style.display='none';
-  document.getElementById('form-ok').style.display='block';
+  // Abrir WhatsApp com os dados
+  const texto = 'Olá! Tenho interesse em contratar internet para meu evento.\n\n👤 *Nome:* ' + nome + '\n🏢 *Empresa:* ' + empresa + '\n📧 *E-mail:* ' + email + '\n📱 *WhatsApp:* ' + whatsapp + '\n🎪 *Tipo de evento:* ' + tipo + '\n💡 *Solução:* ' + solucao + '\n📅 *Data:* ' + data + '\n👥 *Pessoas:* ' + pessoas + '\n📝 *Detalhes:* ' + mensagem;
+  window.open('https://api.whatsapp.com/send?phone=551141936140&text=' + encodeURIComponent(texto), '_blank');
 }
 window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>40?'rgba(11,15,24,.98)':'rgba(11,15,24,.88)'})
 </script>
