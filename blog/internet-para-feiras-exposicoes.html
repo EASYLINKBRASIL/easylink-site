@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Feiras e exposições têm desafios únicos de conectividade. Veja como garantir internet estável para expositores, visitantes e operações.">
+<title>Internet para feiras e exposições: tudo que você precisa saber | Blog easylink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="canonical" href="https://easylinkbrasil.com.br/blog/internet-para-feiras-exposicoes.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64KV5WNS7Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-64KV5WNS7Q');</script>
+<style>
+:root{--bg:#0b0f18;--bg2:#0f1520;--bg3:#141c28;--neon:#38b6ff;--text:#dce8f0;--muted:#6e8a9e;--border:rgba(56,182,255,0.10);--border2:rgba(56,182,255,0.28);--f:'Montserrat',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:16px;line-height:1.8;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#1a8ab5;border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(11,15,24,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--f);font-size:22px;font-weight:900;text-decoration:none;color:var(--text);letter-spacing:-1px}
+.logo span{color:var(--neon)}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--neon)}
+.nav-cta{background:var(--neon)!important;color:#060d14!important;padding:9px 20px;border-radius:6px;font-weight:700!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;display:block}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(11,15,24,.97);padding:24px 5% 32px;border-bottom:1px solid var(--border);gap:20px;backdrop-filter:blur(18px)}}
+
+/* ARTIGO */
+.article-wrap{max-width:760px;margin:0 auto;padding:100px 5% 80px;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:32px;font-weight:500}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--neon)}
+.breadcrumb span{color:var(--muted)}
+.art-cat{font-size:11px;font-weight:700;color:var(--neon);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
+.art-title{font-size:clamp(26px,4.5vw,44px);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:20px}
+.art-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.art-meta span{display:flex;align-items:center;gap:6px}
+.art-thumb{width:100%;height:280px;background:linear-gradient(135deg,#071828 0%,rgba(56,182,255,0.12) 100%);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:80px;margin-bottom:48px;border:1px solid var(--border)}
+
+/* CONTEÚDO */
+.art-content h2{font-size:22px;font-weight:800;letter-spacing:-.3px;margin:40px 0 14px;color:var(--text)}
+.art-content h3{font-size:18px;font-weight:700;margin:28px 0 10px;color:var(--text)}
+.art-content p{color:var(--muted);font-size:16px;line-height:1.85;margin-bottom:18px;font-weight:400}
+.art-content strong{color:var(--text);font-weight:700}
+.art-content ul,.art-content ol{color:var(--muted);padding-left:24px;margin-bottom:18px}
+.art-content li{margin-bottom:8px;font-size:16px;line-height:1.7}
+.art-content a{color:var(--neon);text-decoration:none;font-weight:600}
+.art-content a:hover{text-decoration:underline}
+.art-content hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+.art-content table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.art-content th{background:rgba(56,182,255,0.1);padding:12px 16px;text-align:left;font-weight:700;color:var(--text);border:1px solid var(--border2)}
+.art-content td{padding:11px 16px;border:1px solid var(--border);color:var(--muted)}
+.art-content tr:nth-child(even) td{background:rgba(56,182,255,0.03)}
+
+/* CHECKLIST */
+.art-content input[type=checkbox]{accent-color:var(--neon);margin-right:8px}
+
+/* CTA */
+.art-cta{margin-top:56px;background:rgba(56,182,255,0.06);border:1px solid var(--border2);border-radius:16px;padding:36px;text-align:center}
+.art-cta h3{font-size:20px;font-weight:800;margin-bottom:10px}
+.art-cta p{color:var(--muted);font-size:15px;margin-bottom:24px}
+.btn-wpp{display:inline-flex;align-items:center;gap:10px;background:#38b6ff;color:#060d14;font-family:var(--f);font-size:14px;font-weight:800;padding:14px 28px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+.btn-wpp:hover{opacity:.88}
+
+/* MAIS ARTIGOS */
+.more-posts{max-width:760px;margin:0 auto;padding:0 5% 80px;position:relative;z-index:1}
+.more-posts h3{font-size:18px;font-weight:800;margin-bottom:24px;letter-spacing:-.3px}
+.more-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.more-card{background:rgba(15,21,32,0.9);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s;display:block}
+.more-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.more-card .mc-cat{font-size:10px;font-weight:700;color:var(--neon);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.more-card h4{font-size:14px;font-weight:700;line-height:1.4;color:var(--text)}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:32px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
+footer p{color:var(--muted);font-size:13px}
+footer a{color:var(--neon);text-decoration:none;font-size:13px;font-weight:600}
+
+/* WPP FLOAT */
+.wpp-float{position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 4px 20px rgba(37,211,102,0.4);text-decoration:none;transition:transform .2s}
+.wpp-float:hover{transform:scale(1.1)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><span>easy</span>link</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#sobre">Quem somos</a></li>
+    <li><a href="/#servicos">Serviços</a></li>
+    <li><a href="/#cases">Cases</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/#contato" class="nav-cta">Cotação</a></li>
+  </ul>
+  <button class="hamburger" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="article-wrap">
+  <div class="breadcrumb">
+    <a href="/">início</a>
+    <span>›</span>
+    <a href="/blog">blog</a>
+    <span>›</span>
+    <span>internet para eventos</span>
+  </div>
+  <div class="art-cat">Internet para Eventos</div>
+  <h1 class="art-title">Internet para feiras e exposições: tudo que você precisa saber</h1>
+  <div class="art-meta">
+    <span>📅 1 de junho de 2025</span>
+    <span>⏱ 7 min de leitura</span>
+    <span>✍️ easylink</span>
+  </div>
+  <div class="art-thumb">🏢</div>
+  <div class="art-content">
+<p>Feiras e exposições são um dos ambientes mais desafiadores para infraestrutura de internet. Em um mesmo espaço, você tem expositores que dependem da conexão para demonstrar produtos, equipes de vendas processando pedidos, sistemas de credenciamento e um fluxo intenso de visitantes tentando acessar a rede ao mesmo tempo.</p>
+<p>Neste guia completo, vamos mostrar como planejar e executar a conectividade perfeita para feiras e exposições de qualquer porte.</p>
+<h2>Os desafios únicos de feiras e exposições</h2>
+<p>Diferente de um show ou congresso, uma feira tem características que tornam a conectividade especialmente complexa:</p>
+<p><strong>Múltiplos usuários com necessidades diferentes</strong></p>
+<p>Cada expositor tem uma necessidade distinta. Uma empresa de software precisa de conexão estável para demonstrações ao vivo. Uma loja precisa de internet para o PDV. Um stand de streaming precisa de upload garantido. Tudo isso ao mesmo tempo, no mesmo espaço.</p>
+<p><strong>Alta densidade de dispositivos</strong></p>
+<p>Uma feira com 200 stands pode ter facilmente 2.000 dispositivos conectados simultaneamente — computadores, tablets, smartphones, impressoras, leitores de cartão e câmeras de segurança.</p>
+<p><strong>Estrutura temporária</strong></p>
+<p>Feiras acontecem em centros de convenções, pavilhões ou espaços abertos que podem não ter infraestrutura de rede adequada. A solução precisa ser completamente portátil e autossuficiente.</p>
+<p><strong>Operações financeiras críticas</strong></p>
+<p>Muitas feiras movimentam milhões de reais em pedidos. A queda da internet pode comprometer negociações, pagamentos e o fechamento de contratos.</p>
+<h2>Como dimensionar a internet para uma feira</h2>
+<p>O dimensionamento correto começa com um levantamento detalhado:</p>
+<h3>Mapeamento dos expositores</h3>
+<ul><li>Quantos stands terão PDV (ponto de venda)?</li><li>Quantos farão demonstrações ao vivo de software?</li><li>Quantos transmitirão conteúdo (lives, apresentações)?</li><li>Qual é o fluxo estimado de visitantes por hora?</li></ul>
+<h3>Cálculo de banda por tipo de uso</h3>
+<p>Com base no levantamento, use estas referências:</p>
+<ul><li><strong>PDV e maquininha:</strong> 1-2 Mbps por terminal</li><li><strong>Demonstração de software:</strong> 10-20 Mbps por stand</li><li><strong>Streaming/live:</strong> 10-30 Mbps por câmera</li><li><strong>Wi-Fi para visitantes (por 100 pessoas):</strong> 50-100 Mbps</li><li><strong>Operação interna (organização):</strong> 20-50 Mbps</li></ul>
+<p>Some tudo, adicione 30% de margem e você tem o mínimo necessário.</p>
+<h2>A solução ideal: redes segmentadas</h2>
+<p>Para feiras, a melhor abordagem é dividir a rede em segmentos independentes:</p>
+<h3>Rede de expositores premium</h3>
+<p>Para stands que precisam de conexão garantida — PDVs, demonstrações críticas, transmissões. Banda dedicada, prioridade máxima.</p>
+<h3>Rede de expositores padrão</h3>
+<p>Para uso geral dos stands — email, sistemas de gestão, redes sociais. Banda compartilhada com controle de uso.</p>
+<h3>Rede da organização</h3>
+<p>Para a equipe do evento — credenciamento, segurança, comunicação interna. Completamente isolada do público.</p>
+<h3>Rede para visitantes</h3>
+<p>Wi-Fi aberto para os participantes com limite de banda por dispositivo para garantir equilíbrio.</p>
+<h2>Infraestrutura física: o que considerar</h2>
+<h3>Cabeamento estruturado</h3>
+<p>Para stands que exigem alta performance, o ideal é cabeamento físico (cabo de rede) até o ponto de conexão. Muito mais estável que Wi-Fi para operações críticas.</p>
+<h3>Cobertura Wi-Fi uniforme</h3>
+<p>Planejamento cuidadoso do posicionamento dos access points para garantir cobertura sem zonas mortas, especialmente em pavilhões com estruturas metálicas que podem bloquear o sinal.</p>
+<h3>Alimentação elétrica</h3>
+<p>Cada access point precisa de energia. O planejamento elétrico deve estar integrado ao projeto de rede.</p>
+<h2>Casos reais: o que aprendemos</h2>
+<p>Na easylink, atendemos feiras como a <strong>TechExpo</strong> e eventos de grande porte em São Paulo. Alguns aprendizados que só a prática ensina:</p>
+<p><strong>Sempre faça a vistoria prévia</strong></p>
+<p>O layout divulgado no site da feira raramente é idêntico ao real. Sempre visitamos o local antes para mapear a infraestrutura existente, identificar pontos de energia e planejar o cabeamento.</p>
+<p><strong>Prepare-se para o imprevisível</strong></p>
+<p>Expositores montam estruturas que bloqueiam o sinal. Geradores causam interferência elétrica. Ter equipamento reserva faz toda a diferença.</p>
+<p><strong>Comunique-se com os expositores</strong></p>
+<p>Envie um guia simples antes da feira explicando como conectar os dispositivos, qual SSID usar e o que fazer em caso de problema. Isso reduz drasticamente as chamadas de suporte durante o evento.</p>
+<h2>Checklist para feiras e exposições</h2>
+<ul><li>[ ] Levantamento de necessidades por expositor</li><li>[ ] Dimensionamento de banda com margem de 30%</li><li>[ ] Projeto de rede com segmentação por perfil</li><li>[ ] Vistoria técnica no local (mínimo 7 dias antes)</li><li>[ ] Cabeamento para stands críticos</li><li>[ ] Planejamento de cobertura Wi-Fi com RF design</li><li>[ ] Link de backup ativo</li><li>[ ] Técnico presencial durante todo o evento</li><li>[ ] Monitoramento em tempo real</li><li>[ ] Guia de conectividade para expositores</li></ul>
+<hr>
+<p>Vai organizar uma feira ou exposição? <a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Preciso de internet para uma feira ou exposição.">Fale com a easylink</a> e receba um projeto técnico personalizado em até 24 horas.</p>
+</div>
+<div class="art-cta">
+    <h3>Precisa de internet para o seu evento?</h3>
+    <p>Nossa equipe elabora um projeto técnico personalizado em até 24 horas. Totalmente gratuito.</p>
+    <a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Li o blog da easylink e quero uma cotação para meu evento." class="btn-wpp" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#060d14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar com nosso time
+    </a>
+  </div>
+</div>
+
+<div class="more-posts">
+  <h3>Leia também</h3>
+  <div class="more-grid" id="moreGrid"></div>
+</div>
+
+<footer>
+  <p>© 2025 easylink. Todos os direitos reservados.</p>
+  <a href="/blog">← Voltar para o blog</a>
+</footer>
+
+<a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Quero uma cotação para internet no meu evento." class="wpp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// Sugestões de leitura
+const all = [
+  {slug:'como-escolher-internet-evento',cat:'Internet para Eventos',title:'Como escolher a internet ideal para o seu evento'},
+  {slug:'starlink-para-eventos',cat:'Starlink',title:'Starlink para eventos: quando usar e quando não usar'},
+  {slug:'wifi-shows-festivais',cat:'Wi-Fi Profissional',title:'Wi-Fi em shows e festivais: como garantir conexão para milhares de pessoas'},
+  {slug:'link-dedicado-vs-banda-larga',cat:'Link Dedicado',title:'Diferença entre link dedicado profissional e a internet banda larga de casa'},
+];
+const current = 'internet-para-feiras-exposicoes';
+const others = all.filter(p=>p.slug!==current).slice(0,3);
+const grid = document.getElementById('moreGrid');
+others.forEach(p=>{
+  grid.innerHTML += `<a href="/blog/${p.slug}.html" class="more-card"><div class="mc-cat">${p.cat}</div><h4>${p.title}</h4></a>`;
+});
+</script>
+</body>
+</html>

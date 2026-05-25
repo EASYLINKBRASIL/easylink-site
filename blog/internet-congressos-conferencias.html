@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Congressos têm exigências únicas de conectividade. Da sala plenária às salas simultâneas, veja como garantir conexão para todos.">
+<title>Internet para congressos e conferências: guia completo | Blog easylink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="canonical" href="https://easylinkbrasil.com.br/blog/internet-congressos-conferencias.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64KV5WNS7Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-64KV5WNS7Q');</script>
+<style>
+:root{--bg:#0b0f18;--bg2:#0f1520;--bg3:#141c28;--neon:#38b6ff;--text:#dce8f0;--muted:#6e8a9e;--border:rgba(56,182,255,0.10);--border2:rgba(56,182,255,0.28);--f:'Montserrat',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:16px;line-height:1.8;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#1a8ab5;border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(11,15,24,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--f);font-size:22px;font-weight:900;text-decoration:none;color:var(--text);letter-spacing:-1px}
+.logo span{color:var(--neon)}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--neon)}
+.nav-cta{background:var(--neon)!important;color:#060d14!important;padding:9px 20px;border-radius:6px;font-weight:700!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;display:block}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(11,15,24,.97);padding:24px 5% 32px;border-bottom:1px solid var(--border);gap:20px;backdrop-filter:blur(18px)}}
+
+/* ARTIGO */
+.article-wrap{max-width:760px;margin:0 auto;padding:100px 5% 80px;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:32px;font-weight:500}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--neon)}
+.breadcrumb span{color:var(--muted)}
+.art-cat{font-size:11px;font-weight:700;color:var(--neon);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px}
+.art-title{font-size:clamp(26px,4.5vw,44px);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:20px}
+.art-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.art-meta span{display:flex;align-items:center;gap:6px}
+.art-thumb{width:100%;height:280px;background:linear-gradient(135deg,#071828 0%,rgba(56,182,255,0.12) 100%);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:80px;margin-bottom:48px;border:1px solid var(--border)}
+
+/* CONTEÚDO */
+.art-content h2{font-size:22px;font-weight:800;letter-spacing:-.3px;margin:40px 0 14px;color:var(--text)}
+.art-content h3{font-size:18px;font-weight:700;margin:28px 0 10px;color:var(--text)}
+.art-content p{color:var(--muted);font-size:16px;line-height:1.85;margin-bottom:18px;font-weight:400}
+.art-content strong{color:var(--text);font-weight:700}
+.art-content ul,.art-content ol{color:var(--muted);padding-left:24px;margin-bottom:18px}
+.art-content li{margin-bottom:8px;font-size:16px;line-height:1.7}
+.art-content a{color:var(--neon);text-decoration:none;font-weight:600}
+.art-content a:hover{text-decoration:underline}
+.art-content hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+.art-content table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.art-content th{background:rgba(56,182,255,0.1);padding:12px 16px;text-align:left;font-weight:700;color:var(--text);border:1px solid var(--border2)}
+.art-content td{padding:11px 16px;border:1px solid var(--border);color:var(--muted)}
+.art-content tr:nth-child(even) td{background:rgba(56,182,255,0.03)}
+
+/* CHECKLIST */
+.art-content input[type=checkbox]{accent-color:var(--neon);margin-right:8px}
+
+/* CTA */
+.art-cta{margin-top:56px;background:rgba(56,182,255,0.06);border:1px solid var(--border2);border-radius:16px;padding:36px;text-align:center}
+.art-cta h3{font-size:20px;font-weight:800;margin-bottom:10px}
+.art-cta p{color:var(--muted);font-size:15px;margin-bottom:24px}
+.btn-wpp{display:inline-flex;align-items:center;gap:10px;background:#38b6ff;color:#060d14;font-family:var(--f);font-size:14px;font-weight:800;padding:14px 28px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+.btn-wpp:hover{opacity:.88}
+
+/* MAIS ARTIGOS */
+.more-posts{max-width:760px;margin:0 auto;padding:0 5% 80px;position:relative;z-index:1}
+.more-posts h3{font-size:18px;font-weight:800;margin-bottom:24px;letter-spacing:-.3px}
+.more-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.more-card{background:rgba(15,21,32,0.9);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s;display:block}
+.more-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.more-card .mc-cat{font-size:10px;font-weight:700;color:var(--neon);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.more-card h4{font-size:14px;font-weight:700;line-height:1.4;color:var(--text)}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:32px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
+footer p{color:var(--muted);font-size:13px}
+footer a{color:var(--neon);text-decoration:none;font-size:13px;font-weight:600}
+
+/* WPP FLOAT */
+.wpp-float{position:fixed;bottom:28px;right:28px;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 4px 20px rgba(37,211,102,0.4);text-decoration:none;transition:transform .2s}
+.wpp-float:hover{transform:scale(1.1)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><span>easy</span>link</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#sobre">Quem somos</a></li>
+    <li><a href="/#servicos">Serviços</a></li>
+    <li><a href="/#cases">Cases</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/#contato" class="nav-cta">Cotação</a></li>
+  </ul>
+  <button class="hamburger" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="article-wrap">
+  <div class="breadcrumb">
+    <a href="/">início</a>
+    <span>›</span>
+    <a href="/blog">blog</a>
+    <span>›</span>
+    <span>internet para eventos</span>
+  </div>
+  <div class="art-cat">Internet para Eventos</div>
+  <h1 class="art-title">Internet para congressos e conferências: guia completo</h1>
+  <div class="art-meta">
+    <span>📅 13 de julho de 2025</span>
+    <span>⏱ 7 min de leitura</span>
+    <span>✍️ easylink</span>
+  </div>
+  <div class="art-thumb">🎓</div>
+  <div class="art-content">
+<p>Congressos e conferências são eventos onde a internet não é apenas conveniência — é infraestrutura essencial. Palestrantes apresentam slides hospedados na nuvem, participantes acessam materiais online, salas simultâneas transmitem para o corredor digital e toda a logística de credenciamento e certificação depende de conexão estável.</p>
+<p>Um congresso mal conectado prejudica não apenas a experiência, mas a credibilidade do evento inteiro.</p>
+<h2>As particularidades de congressos e conferências</h2>
+<h3>Múltiplas salas simultâneas</h3>
+<p>Um congresso de médio porte pode ter 5, 10 ou até 20 salas funcionando ao mesmo tempo, cada uma com sua própria programação, equipamento audiovisual e necessidades de conectividade.</p>
+<h3>Perfil técnico dos participantes</h3>
+<p>Congressos de tecnologia, medicina, direito ou negócios reúnem profissionais que vão usar a rede de forma intensa — videoconferências, acesso a sistemas corporativos, downloads de materiais técnicos.</p>
+<h3>Apresentações e demos ao vivo</h3>
+<p>Palestrantes frequentemente fazem demonstrações ao vivo de sistemas, plataformas e aplicações. Uma conexão instável no meio de uma demo ao vivo é uma das situações mais constrangedoras possíveis.</p>
+<h3>Transmissão híbrida</h3>
+<p>O modelo híbrido (presencial + online) se consolidou após a pandemia. Hoje a maioria dos congressos precisa transmitir ao vivo para uma audiência remota que pode ser maior que a presencial.</p>
+<h3>Certificação e avaliação digital</h3>
+<p>Sistemas de avaliação de palestras, emissão de certificados digitais e controle de carga horária dependem de internet para funcionar em tempo real.</p>
+<h2>Como dimensionar a internet para um congresso</h2>
+<p>O dimensionamento de um congresso é mais complexo que outros eventos porque precisa atender múltiplas áreas com necessidades distintas:</p>
+<h3>Área plenária</h3>
+<ul><li>Apresentação do palestrante (acesso à nuvem, demos): 20-50 Mbps dedicados</li><li>Transmissão ao vivo da plenária: 20-50 Mbps de upload por câmera</li><li>Wi-Fi para participantes na plateia: 100-200 Mbps dependendo do número</li></ul>
+<h3>Salas paralelas</h3>
+<ul><li>Por sala: 30-80 Mbps (apresentação + transmissão + participantes)</li><li>Multiplique pelo número de salas simultâneas</li></ul>
+<h3>Área de exposição/patrocinadores</h3>
+<ul><li>Similar a uma feira: 10-30 Mbps por expositor</li></ul>
+<h3>Operação geral</h3>
+<ul><li>Credenciamento: 20-50 Mbps</li><li>Equipe organizadora: 20-50 Mbps</li><li>Sistemas de gestão: 10-20 Mbps</li></ul>
+<p><strong>Exemplo: Congresso com 1 plenária + 5 salas + 20 expositores + 500 participantes</strong></p>
+<ul><li>Plenária: 150 Mbps</li><li>5 salas × 60 Mbps: 300 Mbps</li><li>Expositores: 200 Mbps</li><li>Operação: 100 Mbps</li><li><strong>Total estimado: 750 Mbps a 1 Gbps</strong></li></ul>
+<h2>A estrutura de rede ideal para congressos</h2>
+<h3>Backbone principal</h3>
+<p>Um link dedicado de 1 Gbps ou mais conectado ao núcleo da rede do evento. Deve ter redundância e SLA.</p>
+<h3>Distribuição por área</h3>
+<p>Switches gerenciados distribuindo a rede para cada área do congresso, com controle de banda por VLAN.</p>
+<h3>Wi-Fi de alta densidade</h3>
+<p>Access points enterprise em cada sala, dimensionados para o número máximo de participantes. Para salas com 300+ pessoas, o projeto de RF é fundamental.</p>
+<h3>Cobertura nas áreas comuns</h3>
+<p>Corredores, área de coffee break, foyer — as pessoas nunca param de usar a internet, mesmo fora das salas.</p>
+<h2>Boas práticas específicas para congressos</h2>
+<p><strong>Teste com os palestrantes</strong></p>
+<p>Sempre que possível, faça um teste de conectividade com os palestrantes antes do evento. Especialmente para demos ao vivo e apresentações que dependem de acesso à internet.</p>
+<p><strong>Rede dedicada para palestrantes</strong></p>
+<p>Crie uma VLAN exclusiva para os palestrantes e a AV com prioridade máxima. Nada pior que a demo ao vivo travar porque alguém na plateia está fazendo download.</p>
+<p><strong>Suporte técnico visível</strong></p>
+<p>Tenha técnicos circulando pelo evento e um ponto de suporte identificado. Participantes e palestrantes precisam saber a quem recorrer em caso de problema.</p>
+<p><strong>Plano para o modelo híbrido</strong></p>
+<p>A transmissão para participantes remotos precisa de atenção especial. Defina quem monitora a qualidade do streaming durante o evento — a experiência do participante online é tão importante quanto a do presencial.</p>
+<p><strong>Guia de conectividade para participantes</strong></p>
+<p>Distribua no credenciamento (ou envie por e-mail antes) um guia simples com nome e senha das redes, dicas de uso e contato do suporte.</p>
+<h2>O congresso médico que atendemos</h2>
+<p>Atendemos um congresso médico nacional com 3.000 participantes, 12 salas simultâneas e transmissão ao vivo para especialistas em todo o Brasil. Os desafios foram:</p>
+<ul><li>Acesso simultâneo a plataformas de telemedicina por centenas de médicos</li><li>Apresentações com vídeos em alta resolução em 12 salas</li><li>Transmissão ao vivo com qualidade broadcast</li><li>Credenciamento digital para 3.000 pessoas</li></ul>
+<p>A solução envolveu 2 links dedicados de 1 Gbps em redundância ativa-ativa, mais de 80 access points distribuídos, 12 VLANs independentes e monitoramento em tempo real durante os 3 dias do evento.</p>
+<p>Resultado: 99,9% de uptime e zero reclamações de conectividade.</p>
+<hr>
+<p>Organizando um congresso ou conferência? <a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Preciso de internet para um congresso ou conferência.">Fale com a easylink</a> — nossa experiência com eventos de alto nível técnico garante a conectividade que o seu evento merece.</p>
+</div>
+<div class="art-cta">
+    <h3>Precisa de internet para o seu evento?</h3>
+    <p>Nossa equipe elabora um projeto técnico personalizado em até 24 horas. Totalmente gratuito.</p>
+    <a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Li o blog da easylink e quero uma cotação para meu evento." class="btn-wpp" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#060d14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar com nosso time
+    </a>
+  </div>
+</div>
+
+<div class="more-posts">
+  <h3>Leia também</h3>
+  <div class="more-grid" id="moreGrid"></div>
+</div>
+
+<footer>
+  <p>© 2025 easylink. Todos os direitos reservados.</p>
+  <a href="/blog">← Voltar para o blog</a>
+</footer>
+
+<a href="https://api.whatsapp.com/send?phone=551141936140&text=Olá! Quero uma cotação para internet no meu evento." class="wpp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// Sugestões de leitura
+const all = [
+  {slug:'como-escolher-internet-evento',cat:'Internet para Eventos',title:'Como escolher a internet ideal para o seu evento'},
+  {slug:'starlink-para-eventos',cat:'Starlink',title:'Starlink para eventos: quando usar e quando não usar'},
+  {slug:'wifi-shows-festivais',cat:'Wi-Fi Profissional',title:'Wi-Fi em shows e festivais: como garantir conexão para milhares de pessoas'},
+  {slug:'link-dedicado-vs-banda-larga',cat:'Link Dedicado',title:'Diferença entre link dedicado profissional e a internet banda larga de casa'},
+];
+const current = 'internet-congressos-conferencias';
+const others = all.filter(p=>p.slug!==current).slice(0,3);
+const grid = document.getElementById('moreGrid');
+others.forEach(p=>{
+  grid.innerHTML += `<a href="/blog/${p.slug}.html" class="more-card"><div class="mc-cat">${p.cat}</div><h4>${p.title}</h4></a>`;
+});
+</script>
+</body>
+</html>
