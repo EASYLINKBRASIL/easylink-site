@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="easylink, Internet de alta qualidade para eventos de todos os portes. 4G/5G, Starlink e Link Dedicado. Planos a partir de R$500/diária. Conectou, Navegou!">
 <title>easylink | Internet para Eventos, Conectou, Navegou!</title>
+<!-- Open Graph / WhatsApp / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://easylinkbrasil.com.br/">
+<meta property="og:title" content="easylink | Internet para Eventos">
+<meta property="og:description" content="Internet dedicada de alta qualidade para eventos. 4G/5G, Starlink e Link Dedicado. Planos a partir de R$500/diária. Conectou, Navegou!">
+<meta property="og:image" content="https://easylinkbrasil.com.br/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="easylink Brasil">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="easylink | Internet para Eventos">
+<meta name="twitter:description" content="Internet dedicada de alta qualidade para eventos. 4G/5G, Starlink e Link Dedicado.">
+<meta name="twitter:image" content="https://easylinkbrasil.com.br/og-image.jpg">
+<!-- Favicon SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230b0f18'/><text y='72' x='50' text-anchor='middle' font-family='Montserrat,sans-serif' font-weight='900' font-size='52'><tspan fill='%2338b6ff'>e</tspan><tspan fill='%23ffffff'>l</tspan></text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230b0f18'/><text y='72' x='50' text-anchor='middle' font-family='Montserrat,sans-serif' font-weight='900' font-size='52'><tspan fill='%2338b6ff'>e</tspan><tspan fill='%23ffffff'>l</tspan></text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Montserrat:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
@@ -28,6 +46,16 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--f);font-size:16px;line-height:1.7;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,182,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,182,255,0.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--neon2);border-radius:2px}
+
+/* ── FORM SUCCESS ── */
+@keyframes form-ok-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+#form-ok{display:none;text-align:center;padding:48px 24px;animation:form-ok-in .5s ease both}
+.form-ok-icon{font-size:56px;margin-bottom:16px;filter:drop-shadow(0 0 18px #38b6ff88)}
+.form-ok-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:10px}
+.form-ok-sub{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto}
+.form-ok-cta{display:flex;flex-direction:column;align-items:center;gap:10px}
+.form-ok-cta .btn-g{background:none;border:1px solid var(--border2);color:var(--muted);cursor:pointer;padding:10px 22px;border-radius:6px;font-size:13px;font-family:var(--f);transition:color .2s,border-color .2s}
+.form-ok-cta .btn-g:hover{color:var(--neon);border-color:var(--neon)}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(11,15,24,0.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s}
@@ -603,6 +631,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
       <div class="faq-item"><button class="faq-q" onclick="faq(this)">Com quanto tempo de antecedência devo contratar?<div class="faq-ic">+</div></button><div class="faq-a">Recomendamos contato com pelo menos 15 dias de antecedência para eventos de médio e grande porte. Para casos urgentes, entre em contato e avaliamos a viabilidade, já atendemos situações emergenciais com bastante agilidade.</div></div>
       <div class="faq-item"><button class="faq-q" onclick="faq(this)">A banda é realmente exclusiva e garantida?<div class="faq-ic">+</div></button><div class="faq-a">Sim, especialmente no Link Dedicado. A conexão entrega banda exclusiva, simétrica e estável, com garantia contratual de velocidade e disponibilidade, 100% dedicada ao seu evento durante o período contratado.</div></div>
       <div class="faq-item"><button class="faq-q" onclick="faq(this)">Vocês fornecem os equipamentos?<div class="faq-ic">+</div></button><div class="faq-a">Sim! Todos os equipamentos necessários, modems, roteadores, antenas, access points e cabeamento, são fornecidos, instalados e retirados pela nossa equipe técnica. Você não precisa se preocupar com nada de infraestrutura de rede.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Precisa de energia elétrica no local?<div class="faq-ic">+</div></button><div class="faq-a">Sim, nossos equipamentos precisam de tomadas padrão (110V ou 220V). Para locais sem rede elétrica, trabalhamos com soluções de gerador ou nobreaks, que podem ser incluídos no escopo do projeto. Informe as condições do local no momento do contato e faremos a avaliação completa.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Qual a velocidade mínima garantida?<div class="faq-ic">+</div></button><div class="faq-a">Isso depende da solução contratada. No Link Dedicado, a velocidade é garantida em contrato, com SLA de disponibilidade. No 4G/5G e Starlink, a velocidade pode variar conforme as condições do sinal e número de usuários simultâneos, mas trabalhamos com equipamentos de alto desempenho e fazemos vistorias prévias para garantir a melhor experiência possível no seu evento.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="faq(this)">Como funciona o suporte durante o evento?<div class="faq-ic">+</div></button><div class="faq-a">Nosso técnico fica presencialmente no local durante todo o evento para monitorar a conexão, ajustar configurações em tempo real e resolver qualquer intercorrência imediatamente. Além disso, mantemos um canal de suporte direto pelo WhatsApp com o responsável da operação para garantia total de resposta rápida.</div></div>
     </div>
   </div>
 </section>
@@ -640,7 +671,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
           </div>
           <div class="form-row">
             <div class="fg"><label>E-mail</label><input type="email" name="email" placeholder="joao@empresa.com.br" required></div>
-            <div class="fg"><label>WhatsApp</label><input type="tel" name="whatsapp" placeholder="(11) 9 9999-9999"></div>
+            <div class="fg"><label>WhatsApp <span style="color:#38b6ff">*</span></label><input type="tel" name="whatsapp" placeholder="(11) 9 9999-9999" required></div>
           </div>
           <div class="form-row">
             <div class="fg"><label>Tipo de evento</label><select name="tipo"><option value="">Selecione...</option><option>Show / Festival</option><option>Feira / Exposição</option><option>Congresso / Conferência</option><option>Lançamento de produto</option><option>Evento corporativo</option><option>Ativação de marca</option><option>Transmissão ao vivo</option><option>Outro</option></select></div>
@@ -654,9 +685,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
           <button type="submit" class="btn-send">📋 ENVIAR SOLICITAÇÃO DE ORÇAMENTO</button>
         </form>
         <div id="form-ok">
-          <div style="font-size:44px;margin-bottom:12px">✅</div>
-          <div style="font-size:20px;font-weight:800;margin-bottom:8px">Solicitação enviada!</div>
-          <div style="color:var(--muted);font-size:14px">Nossa equipe entrará em contato em até 24 horas.</div>
+          <div class="form-ok-icon">✅</div>
+          <div class="form-ok-title">Solicitação enviada com sucesso!</div>
+          <div class="form-ok-sub">Nossa equipe entrará em contato em até 24 horas pelo WhatsApp ou e-mail informado.</div>
+          <div class="form-ok-cta">
+            <a href="https://api.whatsapp.com/send?phone=551141936140&text=Acabei%20de%20preencher%20o%20formul%C3%A1rio%20e%20gostaria%20de%20agilizar%20minha%20cota%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn-p" style="display:inline-flex;margin-bottom:12px">💬 Agilizar pelo WhatsApp</a>
+            <button class="btn-g" onclick="document.getElementById('form-ok').style.display='none';document.querySelector('.form-box').style.display='grid';">↩ Enviar outra solicitação</button>
+          </div>
         </div>
       </div>
     </div>
