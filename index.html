@@ -225,7 +225,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
 .ft-bottom p{color:var(--muted);font-size:12px}
 
 /* ── WPP FLOAT ── */
-.wpp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:9997;box-shadow:0 4px 22px rgba(37,211,102,0.42);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.wpp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:600;box-shadow:0 4px 22px rgba(37,211,102,0.42);text-decoration:none;transition:transform .2s,box-shadow .2s}
 .wpp-float:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(37,211,102,0.6)}
 /* ── AI CHAT WIDGET ── */
 #el-chat-btn{position:fixed;bottom:100px;right:28px;width:56px;height:56px;min-width:56px;min-height:56px;max-width:56px;max-height:56px;background:var(--neon);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2147483647;box-shadow:0 4px 22px rgba(56,182,255,0.5);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;padding:0}
@@ -901,7 +901,7 @@ window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.b
 </script>
 
 <!-- BANNER DE COOKIES -->
-<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:2147483646;background:#0d1320;border-top:1px solid rgba(56,182,255,0.2);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;backdrop-filter:blur(12px);">
+<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;z-index:500;background:#0d1320;border-top:1px solid rgba(56,182,255,0.2);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;backdrop-filter:blur(12px);">
   <p style="font-family:Montserrat,sans-serif;font-size:13px;color:#6e8a9e;margin:0;max-width:780px;line-height:1.6;">
     🍪 Usamos cookies para melhorar sua experiência e analisar o tráfego do site. Ao continuar navegando você concorda com o uso de cookies.
   </p>
