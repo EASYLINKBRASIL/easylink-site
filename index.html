@@ -228,8 +228,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
 .wpp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:600;box-shadow:0 4px 22px rgba(37,211,102,0.42);text-decoration:none;transition:transform .2s,box-shadow .2s}
 .wpp-float:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(37,211,102,0.6)}
 /* ── AI CHAT WIDGET ── */
-#el-chat-btn{position:fixed;bottom:100px;right:28px;width:56px;height:56px;min-width:56px;min-height:56px;max-width:56px;max-height:56px;background:var(--neon);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2147483647;box-shadow:0 4px 22px rgba(56,182,255,0.5);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;padding:0}
-#el-chat-btn:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(56,182,255,0.7)}
+#el-chat-btn{position:fixed;bottom:100px;right:0;background:var(--neon);border-radius:12px 0 0 12px;display:flex;align-items:center;justify-content:center;gap:8px;z-index:2147483647;box-shadow:-4px 4px 22px rgba(56,182,255,0.4);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,right .2s;padding:12px 16px 12px 18px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#060d14;white-space:nowrap}
+#el-chat-btn:hover{background:rgba(56,182,255,0.25)}
 #el-chat-box{position:fixed;bottom:168px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;background:#0d1320;border:1px solid rgba(56,182,255,0.25);border-radius:20px;display:flex;flex-direction:column;z-index:2147483646;box-shadow:0 24px 60px rgba(0,0,0,0.5);transform:scale(0.92) translateY(16px);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .25s ease;transform-origin:bottom right}
 #el-chat-box.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
 .el-chat-header{padding:18px 20px 14px;border-bottom:1px solid rgba(56,182,255,0.12);display:flex;align-items:center;gap:12px;flex-shrink:0}
@@ -359,6 +359,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
     <li><a href="#faq">FAQ</a></li>
     <li><a href="/blog">Blog</a></li>
     <li><a href="#contato" class="nav-cta">Cotação</a></li>
+    <li><button onclick="document.getElementById('el-chat-btn').click()" style="background:rgba(56,182,255,0.15);border:1.5px solid var(--neon);color:var(--neon);border-radius:8px;padding:8px 14px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s;">⚡ Easyer</button></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -983,10 +984,7 @@ function recusarCookies(){
 </style>
 
 <!-- Botão -->
-<button id="el-chat-btn" aria-label="Abrir chat">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10H6v-2h12v2zm0-3H6V7h12v2z"/></svg>
-  <span id="el-chat-badge"></span>
-</button>
+
 
 <!-- Janela -->
 <div id="el-chat-box">
