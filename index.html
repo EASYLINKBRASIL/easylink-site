@@ -225,12 +225,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
 .ft-bottom p{color:var(--muted);font-size:12px}
 
 /* ── WPP FLOAT ── */
-.wpp-float{position:fixed;bottom:100px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 4px 22px rgba(37,211,102,0.42);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.wpp-float{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:9997;box-shadow:0 4px 22px rgba(37,211,102,0.42);text-decoration:none;transition:transform .2s,box-shadow .2s}
 .wpp-float:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(37,211,102,0.6)}
 /* ── AI CHAT WIDGET ── */
-#el-chat-btn{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:var(--neon);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:300;box-shadow:0 4px 22px rgba(56,182,255,0.5);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+#el-chat-btn{position:fixed;bottom:100px;right:28px;width:56px;height:56px;min-width:56px;min-height:56px;max-width:56px;max-height:56px;background:var(--neon);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:9999;box-shadow:0 4px 22px rgba(56,182,255,0.5);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;padding:0}
 #el-chat-btn:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(56,182,255,0.7)}
-#el-chat-box{position:fixed;bottom:96px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;background:#0d1320;border:1px solid rgba(56,182,255,0.25);border-radius:20px;display:flex;flex-direction:column;z-index:299;box-shadow:0 24px 60px rgba(0,0,0,0.5);transform:scale(0.92) translateY(16px);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .25s ease;transform-origin:bottom right}
+#el-chat-box{position:fixed;bottom:168px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;background:#0d1320;border:1px solid rgba(56,182,255,0.25);border-radius:20px;display:flex;flex-direction:column;z-index:9998;box-shadow:0 24px 60px rgba(0,0,0,0.5);transform:scale(0.92) translateY(16px);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .25s ease;transform-origin:bottom right}
 #el-chat-box.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
 .el-chat-header{padding:18px 20px 14px;border-bottom:1px solid rgba(56,182,255,0.12);display:flex;align-items:center;gap:12px;flex-shrink:0}
 .el-chat-avatar{width:38px;height:38px;border-radius:50%;background:rgba(56,182,255,0.15);border:1.5px solid rgba(56,182,255,0.4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
