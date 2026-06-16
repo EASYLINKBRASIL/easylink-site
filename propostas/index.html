@@ -1170,6 +1170,8 @@ async function exportPDF() {
   }
 
   const W = 794, H = 1122;
+  let pdfBlob = null;
+
   try {
     // ── 1. Gera o PDF ──
     btn.innerHTML = '⏳ Gerando PDF...';
@@ -1188,13 +1190,39 @@ async function exportPDF() {
       if (i > 0) pdf.addPage([W, H]);
       pdf.addImage(imgData, 'JPEG', 0, 0, W, H);
     }
+
+    // Salva localmente
     pdf.save(filename);
 
-    // ── 2. Envia e-mail de registro via Web3Forms ──
-    btn.innerHTML = '📧 Registrando...';
+    // Pega o PDF como base64 para upload
+    pdfBlob = pdf.output('datauristring').split(',')[1];
 
+  } catch(e) {
+    console.error('Erro ao gerar PDF:', e);
+    showToast('❌', 'Erro ao gerar o PDF. Tente novamente.');
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Exportar PDF`;
+    btn.disabled = false;
+    update();
+    return;
+  }
+
+  // ── 2. Upload para o Google Drive ──
+  try {
+    btn.innerHTML = '☁️ Salvando no Drive...';
+    const driveRes = await fetch('https://script.google.com/macros/s/AKfycbxL6FGkOoDv3ImWimybtJzICt2hXqq5Syy2gEeiGv7P6orG8yxVulJ1lcmQHsMVRIY0/exec', {
+      method: 'POST',
+      body: JSON.stringify({
+        folderId: '1gQaaCFrSYdkIlIFqjxLJN_8CdGVBpssn',
+        filename,
+        file: pdfBlob,
+      })
+    });
+    const driveData = await driveRes.json();
+    if (!driveData.success) throw new Error(driveData.error);
+
+    // ── 3. Envia e-mail de registro via Web3Forms ──
+    btn.innerHTML = '📧 Registrando...';
     const loggedUser = JSON.parse(sessionStorage.getItem('el_user') || '{}');
-    const totalFormatado = `R$ ${formatBRL(calcTotal())}`;
 
     const mensagem = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1217,7 +1245,7 @@ Data:  ${formatDate(v('f_data'))}
 ${selectedServices.length ? selectedServices.join(', ') : '—'}
 
 💰 FINANCEIRO
-Valor Total: ${totalFormatado}
+Valor Total: R$ ${formatBRL(calcTotal())}
 Pagamento:   ${v('f_pagamento') || '—'}
 Validade:    ${v('f_validade') || '7'} dias
 
@@ -1227,10 +1255,12 @@ ${v('f_descricao') || '—'}
 📌 OBSERVAÇÕES
 ${v('f_obs') || '—'}
 
+📁 ARQUIVO NO DRIVE
+${driveData.url}
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Gerado por: ${loggedUser.name || 'Sistema'}
 Emitido em: ${todayStr()}
-Arquivo:    ${filename}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `.trim();
 
@@ -1245,11 +1275,11 @@ Arquivo:    ${filename}
       })
     });
 
-    showToast('✅', `PDF exportado e cópia enviada para atendimento!`);
+    showToast('✅', 'PDF salvo no Drive e e-mail enviado!');
 
   } catch(e) {
-    console.error(e);
-    showToast('⚠️', 'PDF gerado, mas falha ao enviar e-mail. Verifique a conexão.');
+    console.error('Erro no Drive/e-mail:', e);
+    showToast('⚠️', 'PDF baixado, mas falha ao salvar no Drive. Verifique a conexão.');
   } finally {
     btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Exportar PDF`;
     btn.disabled = false;
