@@ -1158,7 +1158,6 @@ async function exportPDF() {
   const filename = `Proposta_EasyLink_${nome}_${evento}_${proposalNumber}.pdf`.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9_\-\.]/g,'');
 
   const btn = document.querySelector('.btn-export');
-  btn.textContent = '⏳ Gerando PDF...';
   btn.disabled = true;
 
   const canvas = document.getElementById('fiber-canvas');
@@ -1172,6 +1171,8 @@ async function exportPDF() {
 
   const W = 794, H = 1122;
   try {
+    // ── 1. Gera o PDF ──
+    btn.innerHTML = '⏳ Gerando PDF...';
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ unit: 'px', format: [W, H], orientation: 'portrait', hotfixes: ['px_scaling'] });
     const pages = [
@@ -1188,10 +1189,67 @@ async function exportPDF() {
       pdf.addImage(imgData, 'JPEG', 0, 0, W, H);
     }
     pdf.save(filename);
-    showToast('✅', `PDF "${filename}" exportado!`);
+
+    // ── 2. Envia e-mail de registro via Web3Forms ──
+    btn.innerHTML = '📧 Registrando...';
+
+    const loggedUser = JSON.parse(sessionStorage.getItem('el_user') || '{}');
+    const totalFormatado = `R$ ${formatBRL(calcTotal())}`;
+
+    const mensagem = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOVA PROPOSTA GERADA — ${proposalNumber}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 CLIENTE
+Nome:     ${v('f_nome') || '—'}
+CNPJ:     ${v('f_cnpj') || '—'}
+Contato:  ${v('f_contato') || '—'}
+E-mail:   ${v('f_email') || '—'}
+Telefone: ${v('f_tel') || '—'}
+
+📅 EVENTO
+Nome:  ${v('f_evento') || '—'}
+Local: ${v('f_local') || '—'}
+Data:  ${formatDate(v('f_data'))}
+
+💼 SERVIÇOS
+${selectedServices.length ? selectedServices.join(', ') : '—'}
+
+💰 FINANCEIRO
+Valor Total: ${totalFormatado}
+Pagamento:   ${v('f_pagamento') || '—'}
+Validade:    ${v('f_validade') || '7'} dias
+
+📝 DESCRIÇÃO
+${v('f_descricao') || '—'}
+
+📌 OBSERVAÇÕES
+${v('f_obs') || '—'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Gerado por: ${loggedUser.name || 'Sistema'}
+Emitido em: ${todayStr()}
+Arquivo:    ${filename}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    `.trim();
+
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: '94593124-67c8-4916-bde2-4fc5aa0524fb',
+        subject: `Nova Proposta — ${proposalNumber} — ${v('f_nome') || 'Cliente'}`,
+        from_name: 'EasyLink Gerador de Propostas',
+        message: mensagem,
+      })
+    });
+
+    showToast('✅', `PDF exportado e cópia enviada para atendimento!`);
+
   } catch(e) {
     console.error(e);
-    showToast('❌', 'Erro ao gerar o PDF. Tente novamente.');
+    showToast('⚠️', 'PDF gerado, mas falha ao enviar e-mail. Verifique a conexão.');
   } finally {
     btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Exportar PDF`;
     btn.disabled = false;
