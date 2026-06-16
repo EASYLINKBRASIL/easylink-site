@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easylink — Área Restrita</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0A1628;
+    --blue: #0055E5;
+    --blue-light: #1A6EFF;
+    --blue-glow: #3D8BFF;
+    --easyblue: #38b6ff;
+    --white: #FFFFFF;
+    --gray-50: #F5F7FA;
+    --gray-100: #EEF1F6;
+    --gray-200: #D8DDE8;
+    --gray-400: #8C96A8;
+    --gray-600: #4A5568;
+    --gray-800: #1A202C;
+    --green: #00C87A;
+    --red: #E53E3E;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ══════════════════════════════════════
+     LOGIN SCREEN
+  ══════════════════════════════════════ */
+  #login-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  #login-screen::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,85,229,0.18) 0%, transparent 70%);
+    top: -150px; right: -100px;
+    pointer-events: none;
+  }
+  #login-screen::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,182,255,0.08) 0%, transparent 70%);
+    bottom: -100px; left: -80px;
+    pointer-events: none;
+  }
+
+  .login-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 48px 44px 44px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(20px);
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .login-badge {
+    display: inline-block;
+    background: rgba(56,182,255,0.12);
+    border: 1px solid rgba(56,182,255,0.25);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--easyblue);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .login-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .login-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 32px;
+  }
+
+  .login-field {
+    margin-bottom: 16px;
+  }
+
+  .login-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .login-field input {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 9px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .login-field input::placeholder { color: rgba(255,255,255,0.25); }
+
+  .login-field input:focus {
+    border-color: var(--easyblue);
+    background: rgba(56,182,255,0.06);
+  }
+
+  .login-error {
+    font-size: 12px;
+    color: #FC8181;
+    background: rgba(229,62,62,0.1);
+    border: 1px solid rgba(229,62,62,0.25);
+    border-radius: 7px;
+    padding: 9px 14px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .login-error.show { display: block; }
+
+  .btn-login {
+    width: 100%;
+    padding: 13px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+    letter-spacing: 0.2px;
+  }
+  .btn-login:hover { background: var(--blue-light); }
+  .btn-login:active { transform: scale(0.98); }
+  .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .login-footer {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ══════════════════════════════════════
+     APP (hidden until login)
+  ══════════════════════════════════════ */
+  #app { display: none; flex-direction: column; flex: 1; }
+  #app.visible { display: flex; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--navy);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .topbar-brand { display: flex; align-items: center; gap: 16px; }
+  .topbar-divider {
+    width: 1px; height: 24px;
+    background: rgba(255,255,255,0.12);
+  }
+  .topbar-sub-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+  .user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+  }
+  .user-avatar {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: white;
+  }
+  .user-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); }
+
+  .btn-logout {
+    padding: 7px 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: rgba(255,255,255,0.4);
+    border-radius: 7px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-logout:hover { border-color: rgba(255,255,255,0.25); color: var(--white); }
+
+  .btn-reset {
+    padding: 8px 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: var(--gray-400);
+    border-radius: 7px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-reset:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+
+  .btn-export {
+    padding: 8px 20px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .btn-export:hover { background: var(--blue-light); transform: translateY(-1px); }
+  .btn-export svg { width: 14px; height: 14px; }
+
+  /* ── LAYOUT ── */
+  .workspace {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 0;
+    flex: 1;
+    height: calc(100vh - 65px);
+  }
+
+  /* ── FORM PANEL ── */
+  .form-panel {
+    background: var(--white);
+    border-right: 1px solid var(--gray-200);
+    overflow-y: auto;
+    padding: 28px 28px 40px;
+  }
+  .form-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin: 24px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--gray-100);
+  }
+  .form-section-title:first-child { margin-top: 0; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    margin-bottom: 5px;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 7px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--gray-800);
+    background: var(--gray-50);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,85,229,0.1);
+    background: var(--white);
+  }
+  .form-row textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+  .form-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .services-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .services-table th {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-400);
+    text-align: left;
+    padding: 0 6px 6px;
+    letter-spacing: 0.3px;
+  }
+  .services-table td { padding: 3px 4px; }
+  .services-table input { padding: 7px 8px !important; font-size: 12px !important; }
+  .services-table select { padding: 7px 8px !important; font-size: 12px !important; }
+  .btn-remove-row {
+    background: none; border: none; cursor: pointer;
+    color: #E53E3E; font-size: 16px; line-height: 1;
+    padding: 4px; opacity: 0.5; transition: opacity 0.2s;
+  }
+  .btn-remove-row:hover { opacity: 1; }
+  .btn-add-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 12px;
+    border: 1.5px dashed var(--gray-200);
+    background: transparent; border-radius: 7px;
+    font-size: 12px; font-weight: 600; color: var(--blue);
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: all 0.2s; width: 100%; justify-content: center; margin-top: 4px;
+  }
+  .btn-add-row:hover { border-color: var(--blue); background: rgba(0,85,229,0.04); }
+
+  .chips-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .chip {
+    padding: 4px 10px; border-radius: 20px;
+    border: 1.5px solid var(--gray-200);
+    font-size: 11px; font-weight: 600; color: var(--gray-600);
+    cursor: pointer; transition: all 0.15s; user-select: none;
+  }
+  .chip.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+
+  /* ── PREVIEW PANEL ── */
+  .preview-panel {
+    background: #CBD5E0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 16px;
+  }
+  .preview-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    color: #718096; align-self: flex-start;
+  }
+
+  /* ── PROPOSTA ── */
+  .proposal-wrapper {
+    width: 794px; background: var(--white);
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+  }
+
+  .proposal-cover {
+    width: 794px; height: 1122px;
+    background: var(--navy);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; padding: 0;
+  }
+  .cover-fiber-canvas {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; z-index: 0;
+  }
+  .cover-content {
+    position: relative; z-index: 1; flex: 1;
+    display: flex; flex-direction: column;
+    padding: 60px 64px 56px;
+  }
+  .cover-logo-area { display: flex; align-items: center; gap: 14px; margin-bottom: auto; }
+  .cover-brand-sub { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 400; letter-spacing: 0.5px; }
+  .cover-main { margin-top: 80px; }
+  .cover-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--blue-glow); margin-bottom: 20px;
+  }
+  .cover-title {
+    font-size: 42px; font-weight: 800; color: var(--white);
+    line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 8px;
+  }
+  .cover-title span { color: var(--blue-glow); }
+  .cover-subtitle {
+    font-size: 16px; color: rgba(255,255,255,0.5);
+    font-weight: 400; margin-bottom: 48px; line-height: 1.5;
+  }
+  .cover-client-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 24px 28px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px 32px; backdrop-filter: blur(10px);
+  }
+  .cover-field label {
+    font-size: 10px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    display: block; margin-bottom: 4px;
+  }
+  .cover-field span { font-size: 14px; font-weight: 500; color: var(--white); }
+  .cover-footer {
+    margin-top: 48px; display: flex; align-items: center;
+    justify-content: space-between; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .cover-date { font-size: 12px; color: rgba(255,255,255,0.35); }
+  .cover-validity { font-size: 12px; color: rgba(255,255,255,0.35); }
+  .cover-validity strong { color: rgba(255,255,255,0.6); }
+
+  .proposal-details {
+    width: 794px; height: 1122px;
+    background: var(--white); padding: 56px 64px;
+    display: flex; flex-direction: column;
+    border-top: 4px solid var(--gray-100);
+  }
+  .details-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 36px; padding-bottom: 20px;
+    border-bottom: 2px solid var(--gray-100);
+  }
+  .details-section-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 4px;
+  }
+  .details-section-title { font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; }
+  .details-page-num { font-size: 11px; color: var(--gray-400); }
+
+  .event-info-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; background: var(--gray-50); border-radius: 10px;
+    overflow: hidden; border: 1px solid var(--gray-100); margin-bottom: 32px;
+  }
+  .event-info-cell { padding: 16px 20px; border-right: 1px solid var(--gray-100); }
+  .event-info-cell:last-child { border-right: none; }
+  .event-info-cell label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--gray-400); display: block; margin-bottom: 4px;
+  }
+  .event-info-cell span { font-size: 13px; font-weight: 600; color: var(--navy); }
+
+  .section-block { margin-bottom: 28px; }
+  .section-block-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--gray-400); margin-bottom: 10px;
+  }
+  .description-text {
+    font-size: 13px; color: var(--gray-600); line-height: 1.7;
+    background: var(--gray-50); padding: 14px 18px;
+    border-radius: 8px; border-left: 3px solid var(--blue);
+  }
+
+  .service-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .service-tag {
+    padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    background: rgba(0,85,229,0.08); color: var(--blue); border: 1px solid rgba(0,85,229,0.2);
+  }
+
+  .pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+  .pricing-table thead tr { background: var(--navy); }
+  .pricing-table thead th {
+    padding: 11px 14px; text-align: left; font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.7); letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .pricing-table thead th:last-child { text-align: right; }
+  .pricing-table tbody tr:nth-child(even) { background: var(--gray-50); }
+  .pricing-table tbody tr { border-bottom: 1px solid var(--gray-100); }
+  .pricing-table tbody td { padding: 11px 14px; font-size: 13px; color: var(--gray-800); }
+  .pricing-table tbody td:last-child { text-align: right; font-weight: 600; }
+  .pricing-table tfoot tr { background: var(--navy); }
+  .pricing-table tfoot td { padding: 13px 14px; font-size: 13px; font-weight: 700; color: var(--white); }
+  .pricing-table tfoot td:last-child { text-align: right; font-size: 16px; color: #7EC8FF; }
+
+  .payment-row {
+    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    background: rgba(0,200,122,0.07); border: 1px solid rgba(0,200,122,0.25);
+    border-radius: 8px; margin-bottom: 28px;
+  }
+  .payment-icon { font-size: 18px; }
+  .payment-text { font-size: 13px; font-weight: 500; color: var(--gray-800); }
+  .payment-text strong { color: #00995C; }
+  .obs-text { font-size: 12px; color: var(--gray-400); line-height: 1.6; font-style: italic; }
+
+  .details-footer {
+    margin-top: auto; padding-top: 24px; border-top: 1px solid var(--gray-100);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .details-footer-brand { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+  .details-footer-contact { font-size: 11px; color: var(--gray-400); text-align: right; }
+
+  .proposal-about {
+    width: 794px; height: 1122px; background: var(--white);
+    display: flex; flex-direction: column;
+    border-top: 4px solid var(--gray-100); overflow: hidden;
+  }
+  .about-hero {
+    background: var(--navy); padding: 52px 64px 44px;
+    position: relative; overflow: hidden;
+  }
+  .about-hero::after {
+    content: ''; position: absolute; right: -60px; top: -60px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,85,229,0.25) 0%, transparent 70%);
+  }
+  .about-hero-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--blue-glow); margin-bottom: 12px;
+  }
+  .about-hero-title {
+    font-size: 28px; font-weight: 800; color: var(--white);
+    letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 14px;
+  }
+  .about-hero-title span { color: var(--blue-glow); }
+  .about-hero-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 560px; }
+  .about-body { padding: 40px 64px; flex: 1; display: flex; flex-direction: column; gap: 32px; }
+  .about-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .pillar-card {
+    background: var(--gray-50); border: 1px solid var(--gray-100);
+    border-radius: 10px; padding: 18px 16px;
+  }
+  .pillar-icon {
+    width: 36px; height: 36px; background: rgba(0,85,229,0.1);
+    border-radius: 8px; display: flex; align-items: center;
+    justify-content: center; margin-bottom: 10px; font-size: 16px;
+  }
+  .pillar-title { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+  .pillar-desc { font-size: 11px; color: var(--gray-400); line-height: 1.6; }
+  .about-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--navy); border-radius: 10px; overflow: hidden;
+  }
+  .stat-cell { padding: 18px 20px; border-right: 1px solid rgba(255,255,255,0.08); text-align: center; }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num { font-size: 26px; font-weight: 800; color: var(--white); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+  .stat-num span { color: var(--blue-glow); font-size: 18px; }
+  .stat-label { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .about-clients-title { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-400); margin-bottom: 14px; }
+  .about-services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .about-service-item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px;
+    background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-100);
+  }
+  .about-service-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); margin-top: 3px; flex-shrink: 0; }
+  .about-service-text { font-size: 12px; font-weight: 500; color: var(--navy); }
+  .about-service-sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
+  .about-footer {
+    padding: 20px 64px; border-top: 1px solid var(--gray-100);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .about-footer-brand { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+  .about-footer-contact { font-size: 11px; color: var(--gray-400); text-align: right; }
+
+  .proposal-num-badge {
+    background: rgba(0,85,229,0.15); border: 1px solid rgba(0,85,229,0.3);
+    border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 700;
+    color: var(--blue-glow); letter-spacing: 1px;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--navy); color: var(--white);
+    padding: 12px 20px; border-radius: 10px;
+    font-size: 13px; font-weight: 500; z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-icon { font-size: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 54" height="44" role="img" aria-label="easylink">
+        <text y="46" font-family="Montserrat,sans-serif" font-weight="900" font-size="46" x="2">
+          <tspan fill="#38b6ff">easy</tspan><tspan fill="#ffffff">link</tspan>
+        </text>
+      </svg>
+    </div>
+    <div style="text-align:center; margin-bottom:28px;">
+      <span class="login-badge">Área Restrita</span>
+      <div class="login-title">Gerador de Propostas</div>
+      <div class="login-sub">Acesso exclusivo para a equipe easylink</div>
+    </div>
+
+    <div class="login-error" id="login-error">Usuário ou senha incorretos.</div>
+
+    <div class="login-field">
+      <label>Usuário</label>
+      <input type="text" id="login-user" placeholder="seu usuário" autocomplete="username" onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+    <div class="login-field">
+      <label>Senha</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+
+    <button class="btn-login" id="btn-login" onclick="doLogin()">Entrar</button>
+
+    <div class="login-footer">easylinkbrasil.com.br · uso interno</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     APP
+══════════════════════════════════════ -->
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 54" height="30" role="img" aria-label="easylink">
+        <text y="46" font-family="Montserrat,sans-serif" font-weight="900" font-size="46" x="2">
+          <tspan fill="#38b6ff">easy</tspan><tspan fill="#ffffff">link</tspan>
+        </text>
+      </svg>
+      <div class="topbar-divider"></div>
+      <span class="topbar-sub-label">Gerador de Propostas</span>
+    </div>
+    <div class="topbar-actions">
+      <div class="user-badge">
+        <div class="user-avatar" id="user-avatar">E</div>
+        <span class="user-name" id="user-name">Eduardo</span>
+      </div>
+      <button class="btn-reset" onclick="resetForm()">↺ Limpar</button>
+      <button class="btn-export" onclick="exportPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Exportar PDF
+      </button>
+      <button class="btn-logout" onclick="doLogout()">Sair</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+
+      <div class="form-section-title">Cliente</div>
+      <div class="form-row">
+        <label>Razão Social / Nome</label>
+        <input type="text" id="f_nome" placeholder="Ex: Grupo Vivo S.A." oninput="update()">
+      </div>
+      <div class="form-row">
+        <label>CNPJ</label>
+        <input type="text" id="f_cnpj" placeholder="00.000.000/0001-00" oninput="update()" maxlength="18">
+      </div>
+      <div class="form-cols">
+        <div class="form-row">
+          <label>Contato</label>
+          <input type="text" id="f_contato" placeholder="Nome do responsável" oninput="update()">
+        </div>
+        <div class="form-row">
+          <label>Telefone / WhatsApp</label>
+          <input type="text" id="f_tel" placeholder="(11) 9 0000-0000" oninput="update()">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>E-mail</label>
+        <input type="email" id="f_email" placeholder="contato@empresa.com.br" oninput="update()">
+      </div>
+
+      <div class="form-section-title">Evento</div>
+      <div class="form-row">
+        <label>Nome do Evento</label>
+        <input type="text" id="f_evento" placeholder="Ex: Convenção Nacional Vivo 2025" oninput="update()">
+      </div>
+      <div class="form-cols">
+        <div class="form-row">
+          <label>Local</label>
+          <input type="text" id="f_local" placeholder="São Paulo, SP" oninput="update()">
+        </div>
+        <div class="form-row">
+          <label>Data do Evento</label>
+          <input type="date" id="f_data" oninput="update()">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Descrição / Escopo</label>
+        <textarea id="f_descricao" placeholder="Descreva o evento, necessidades de conectividade, número de usuários esperados, etc." oninput="update()"></textarea>
+      </div>
+
+      <div class="form-section-title">Tipo de Serviço</div>
+      <div class="chips-row" id="chips-servicos">
+        <span class="chip" data-val="Fibra Dedicada" onclick="toggleChip(this)">🔵 Fibra Dedicada</span>
+        <span class="chip" data-val="Starlink" onclick="toggleChip(this)">🛰️ Starlink</span>
+        <span class="chip" data-val="4G/5G" onclick="toggleChip(this)">📡 4G/5G</span>
+        <span class="chip" data-val="Wi-Fi Gerenciado" onclick="toggleChip(this)">📶 Wi-Fi Gerenciado</span>
+        <span class="chip" data-val="Link Backup" onclick="toggleChip(this)">🔄 Link Backup</span>
+      </div>
+
+      <div class="form-section-title" style="margin-top:22px;">Itens e Valores</div>
+      <table class="services-table">
+        <thead>
+          <tr>
+            <th style="width:44%">Descrição</th>
+            <th style="width:14%">Qtd</th>
+            <th style="width:20%">Unit. (R$)</th>
+            <th style="width:16%">Total</th>
+            <th style="width:6%"></th>
+          </tr>
+        </thead>
+        <tbody id="items-body"></tbody>
+      </table>
+      <button class="btn-add-row" onclick="addRow()">+ Adicionar item</button>
+
+      <div class="form-section-title">Pagamento e Vigência</div>
+      <div class="form-row">
+        <label>Forma de Pagamento</label>
+        <select id="f_pagamento" onchange="update()">
+          <option value="">Selecione...</option>
+          <option>PIX à vista</option>
+          <option>Boleto à vista</option>
+          <option>50% entrada + 50% após evento</option>
+          <option>30/60 dias</option>
+          <option>Faturamento mensal</option>
+          <option>A combinar</option>
+        </select>
+      </div>
+      <div class="form-cols">
+        <div class="form-row">
+          <label>Validade da Proposta</label>
+          <input type="number" id="f_validade" value="7" min="1" max="60" oninput="update()">
+        </div>
+        <div class="form-row" style="display:flex;align-items:flex-end;">
+          <span style="font-size:12px;color:var(--gray-400);padding-bottom:9px;">dias após emissão</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Observações (opcional)</label>
+        <textarea id="f_obs" placeholder="Condições especiais, exclusões, notas técnicas..." oninput="update()" style="min-height:55px;"></textarea>
+      </div>
+
+    </div>
+
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel">
+      <div class="preview-label">Pré-visualização</div>
+      <div id="proposal-output"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">PDF exportado com sucesso!</span>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════
+// Usuários: { usuario: { hash_sha256, displayName } }
+// Para alterar senhas: gere o SHA-256 da nova senha e substitua o hash abaixo.
+// Ferramenta online: https://emn178.github.io/online-tools/sha256.html
+const USERS = {
+  'eduardo': {
+    hash: '2f527df42907307cd60f096dd956b1e1c0c29ae37d8b3abdc4e9745c39be8e6b', // easylink2024
+    name: 'Eduardo'
+  },
+  'comercial': {
+    hash: '162800e9d7724bed444fd5cace98bdc48d0f2c9df69c78ffd9cdb318312ddb21', // proposta123
+    name: 'Comercial'
+  }
+};
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function doLogin() {
+  const user = document.getElementById('login-user').value.trim().toLowerCase();
+  const pass = document.getElementById('login-pass').value;
+  const btn = document.getElementById('btn-login');
+  const err = document.getElementById('login-error');
+
+  if (!user || !pass) { err.textContent = 'Preencha usuário e senha.'; err.classList.add('show'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Verificando...';
+  err.classList.remove('show');
+
+  const hash = await sha256(pass);
+  const found = USERS[user];
+
+  if (found && found.hash === hash) {
+    sessionStorage.setItem('el_user', JSON.stringify({ user, name: found.name }));
+    showApp(found.name);
+  } else {
+    err.textContent = 'Usuário ou senha incorretos.';
+    err.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+    document.getElementById('login-pass').value = '';
+    document.getElementById('login-pass').focus();
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('el_user');
+  location.reload();
+}
+
+function showApp(name) {
+  document.getElementById('login-screen').style.display = 'none';
+  const app = document.getElementById('app');
+  app.classList.add('visible');
+  // update user badge
+  const initial = name.charAt(0).toUpperCase();
+  document.getElementById('user-avatar').textContent = initial;
+  document.getElementById('user-name').textContent = name;
+  // init generator
+  addRow();
+  update();
+}
+
+// Check session on load
+(function() {
+  const stored = sessionStorage.getItem('el_user');
+  if (stored) {
+    try {
+      const { name } = JSON.parse(stored);
+      showApp(name);
+    } catch(e) {
+      sessionStorage.removeItem('el_user');
+    }
+  }
+})();
+
+// ══════════════════════════════════════
+// GENERATOR
+// ══════════════════════════════════════
+let rows = [];
+let rowCounter = 0;
+let selectedServices = [];
+let proposalNumber = generateProposalNumber();
+
+function generateProposalNumber() {
+  const now = new Date();
+  const y = now.getFullYear().toString().slice(-2);
+  const m = String(now.getMonth()+1).padStart(2,'0');
+  const r = String(Math.floor(Math.random()*900)+100);
+  return `EL-${y}${m}-${r}`;
+}
+
+function toggleChip(el) {
+  el.classList.toggle('active');
+  selectedServices = [...document.querySelectorAll('.chip.active')].map(c => c.dataset.val);
+  update();
+}
+
+function addRow() {
+  const id = ++rowCounter;
+  rows.push({ id, desc: '', qty: 1, unit: '' });
+  renderRows();
+}
+
+function removeRow(id) {
+  rows = rows.filter(r => r.id !== id);
+  renderRows();
+}
+
+function renderRows() {
+  const tbody = document.getElementById('items-body');
+  tbody.innerHTML = rows.map(r => `
+    <tr data-id="${r.id}">
+      <td><input type="text" placeholder="Descrição do serviço" value="${r.desc}" oninput="updateRow(${r.id},'desc',this.value)"></td>
+      <td><input type="number" min="1" value="${r.qty}" oninput="updateRow(${r.id},'qty',this.value)" style="text-align:center"></td>
+      <td><input type="text" placeholder="0,00" value="${r.unit}" oninput="updateRow(${r.id},'unit',this.value)" style="text-align:right"></td>
+      <td style="padding:3px 4px;"><input type="text" readonly value="${calcRowTotal(r)}" style="background:var(--gray-100);font-weight:600;text-align:right;cursor:default;color:var(--navy)"></td>
+      <td style="padding:3px 2px;text-align:center;"><button class="btn-remove-row" onclick="removeRow(${r.id})">×</button></td>
+    </tr>
+  `).join('');
+  update();
+}
+
+function updateRow(id, field, val) {
+  const r = rows.find(r => r.id === id);
+  if (!r) return;
+  r[field] = val;
+  const tr = document.querySelector(`tr[data-id="${id}"]`);
+  if (tr) { const inputs = tr.querySelectorAll('input'); inputs[3].value = calcRowTotal(r); }
+  update();
+}
+
+function parseBRL(s) {
+  if (!s) return 0;
+  return parseFloat(s.replace(/\./g,'').replace(',','.')) || 0;
+}
+function formatBRL(n) {
+  return n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function calcRowTotal(r) {
+  return formatBRL((parseFloat(r.qty)||1) * parseBRL(r.unit));
+}
+function calcTotal() {
+  return rows.reduce((acc, r) => acc + (parseFloat(r.qty)||1) * parseBRL(r.unit), 0);
+}
+
+function v(id) { return (document.getElementById(id)?.value || '').trim(); }
+function formatDate(s) {
+  if (!s) return '—';
+  const [y,m,d] = s.split('-');
+  return `${d}/${m}/${y}`;
+}
+function todayStr() { return new Date().toLocaleDateString('pt-BR'); }
+
+function drawFibers(canvas) {
+  const ctx = canvas.getContext('2d');
+  canvas.width = 794; canvas.height = 1122;
+  ctx.clearRect(0,0,794,1122);
+  const lines = [
+    { x1:0, y1:300, x2:794, y2:180, color:'rgba(0,100,255,0.18)', w:1.5 },
+    { x1:0, y1:500, x2:794, y2:350, color:'rgba(0,150,255,0.12)', w:1 },
+    { x1:0, y1:700, x2:600, y2:900, color:'rgba(0,80,200,0.10)', w:1 },
+    { x1:200, y1:0, x2:794, y2:600, color:'rgba(0,120,255,0.08)', w:0.8 },
+    { x1:400, y1:1122, x2:794, y2:400, color:'rgba(60,180,255,0.12)', w:1.2 },
+    { x1:0, y1:900, x2:794, y2:750, color:'rgba(0,100,200,0.08)', w:0.7 },
+    { x1:100, y1:1122, x2:794, y2:200, color:'rgba(40,160,255,0.06)', w:0.5 },
+  ];
+  lines.forEach(l => {
+    const grad = ctx.createLinearGradient(l.x1,l.y1,l.x2,l.y2);
+    grad.addColorStop(0,'transparent'); grad.addColorStop(0.3,l.color);
+    grad.addColorStop(0.7,l.color); grad.addColorStop(1,'transparent');
+    ctx.strokeStyle = grad; ctx.lineWidth = l.w;
+    ctx.beginPath(); ctx.moveTo(l.x1,l.y1); ctx.lineTo(l.x2,l.y2); ctx.stroke();
+  });
+  const grd = ctx.createRadialGradient(680,250,0,680,250,280);
+  grd.addColorStop(0,'rgba(0,100,255,0.12)'); grd.addColorStop(1,'transparent');
+  ctx.fillStyle = grd; ctx.fillRect(0,0,794,1122);
+}
+
+function update() {
+  const nome = v('f_nome') || 'Nome do Cliente';
+  const cnpj = v('f_cnpj') || '—';
+  const contato = v('f_contato') || '—';
+  const tel = v('f_tel') || '—';
+  const email = v('f_email') || '—';
+  const evento = v('f_evento') || 'Nome do Evento';
+  const local = v('f_local') || '—';
+  const data = formatDate(v('f_data'));
+  const descricao = v('f_descricao') || '';
+  const pagamento = v('f_pagamento') || '—';
+  const validade = v('f_validade') || '7';
+  const obs = v('f_obs') || '';
+  const total = calcTotal();
+
+  const servTagsHtml = selectedServices.length
+    ? selectedServices.map(s => `<span class="service-tag">${s}</span>`).join('')
+    : '<span class="service-tag" style="opacity:0.4">—</span>';
+
+  const priceRowsHtml = rows.length ? rows.map(r => {
+    const q = parseFloat(r.qty)||1; const u = parseBRL(r.unit);
+    return `<tr><td>${r.desc||'—'}</td><td>${r.qty}</td><td>R$ ${formatBRL(u)}</td><td>R$ ${formatBRL(q*u)}</td></tr>`;
+  }).join('') : `<tr><td colspan="4" style="color:var(--gray-400);text-align:center;padding:20px;font-style:italic;font-size:12px;">Nenhum item adicionado</td></tr>`;
+
+  const obsHtml = obs ? `<div class="section-block"><div class="section-block-title">Observações</div><p class="obs-text">${obs.replace(/\n/g,'<br>')}</p></div>` : '';
+  const descrHtml = descricao ? `<div class="section-block"><div class="section-block-title">Descrição do Evento</div><div class="description-text">${descricao.replace(/\n/g,'<br>')}</div></div>` : '';
+
+  document.getElementById('proposal-output').innerHTML = `
+    <div class="proposal-wrapper" id="proposal-pdf">
+
+      <div class="proposal-cover">
+        <canvas class="cover-fiber-canvas" id="fiber-canvas"></canvas>
+        <div class="cover-content">
+          <div class="cover-logo-area">
+            <div style="display:flex;align-items:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 54" height="40" role="img" aria-label="easylink">
+                <text y="46" font-family="Montserrat,sans-serif" font-weight="900" font-size="46" x="2">
+                  <tspan fill="#38b6ff">easy</tspan><tspan fill="#ffffff">link</tspan>
+                </text>
+              </svg>
+            </div>
+            <div style="margin-left:8px;"><div class="cover-brand-sub">easylinkbrasil.com.br</div></div>
+            <div style="margin-left:auto"><span class="proposal-num-badge">${proposalNumber}</span></div>
+          </div>
+          <div class="cover-main">
+            <div class="cover-eyebrow">Proposta Comercial</div>
+            <div class="cover-title">Conectividade<br><span>sob medida</span><br>para o seu evento</div>
+            <div class="cover-subtitle"></div>
+            <div class="cover-client-card">
+              <div class="cover-field"><label>Cliente</label><span>${nome}</span></div>
+              <div class="cover-field"><label>CNPJ</label><span>${cnpj}</span></div>
+              <div class="cover-field"><label>Contato</label><span>${contato}</span></div>
+              <div class="cover-field"><label>E-mail / Tel</label><span>${email||tel}</span></div>
+              <div class="cover-field"><label>Evento</label><span>${evento}</span></div>
+              <div class="cover-field"><label>Data</label><span>${data}</span></div>
+            </div>
+          </div>
+          <div class="cover-footer">
+            <span class="cover-date">Emitido em ${todayStr()}</span>
+            <span class="cover-validity">Válida por <strong>${validade} dias</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proposal-details">
+        <div class="details-header">
+          <div class="details-header-left">
+            <div class="details-section-eyebrow">Detalhamento</div>
+            <div class="details-section-title">Escopo e Valores</div>
+          </div>
+          <div class="details-page-num">Pág. 2 — ${proposalNumber}</div>
+        </div>
+        <div class="event-info-grid">
+          <div class="event-info-cell"><label>Evento</label><span>${evento}</span></div>
+          <div class="event-info-cell"><label>Local</label><span>${local}</span></div>
+          <div class="event-info-cell" style="border-right:none"><label>Data</label><span>${data}</span></div>
+        </div>
+        ${descrHtml}
+        <div class="section-block">
+          <div class="section-block-title">Serviços Inclusos</div>
+          <div class="service-tags">${servTagsHtml}</div>
+        </div>
+        <div class="section-block">
+          <div class="section-block-title">Itens da Proposta</div>
+          <table class="pricing-table">
+            <thead><tr><th>Descrição</th><th>Qtd</th><th>Valor Unit.</th><th>Total</th></tr></thead>
+            <tbody>${priceRowsHtml}</tbody>
+            <tfoot><tr><td colspan="3">Total Geral</td><td>R$ ${formatBRL(total)}</td></tr></tfoot>
+          </table>
+        </div>
+        <div class="payment-row">
+          <span class="payment-icon">💳</span>
+          <span class="payment-text">Forma de pagamento: <strong>${pagamento}</strong></span>
+        </div>
+        ${obsHtml}
+        <div class="details-footer">
+          <div class="details-footer-brand">easylink internet para eventos</div>
+          <div class="details-footer-contact">atendimento@easylinkbrasil.com.br · easylinkbrasil.com.br</div>
+        </div>
+      </div>
+
+      <div class="proposal-about">
+        <div class="about-hero">
+          <div style="margin-bottom:20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 54" height="36" role="img" aria-label="easylink">
+              <text y="46" font-family="Montserrat,sans-serif" font-weight="900" font-size="46" x="2">
+                <tspan fill="#38b6ff">easy</tspan><tspan fill="#ffffff">link</tspan>
+              </text>
+            </svg>
+          </div>
+          <div class="about-hero-eyebrow">Quem somos</div>
+          <div class="about-hero-title">Conectividade de alto padrão<br><span>para quem não aceita falhas.</span></div>
+          <div class="about-hero-desc">A EasyLink Brasil é especialista em soluções de internet dedicada para eventos corporativos, feiras, shows e produções. Atuamos com infraestrutura própria em fibra óptica, Starlink e links 4G/5G, garantindo estabilidade e performance mesmo nos ambientes mais exigentes.</div>
+        </div>
+        <div class="about-body">
+          <div class="about-pillars">
+            <div class="pillar-card"><div class="pillar-icon">⚡</div><div class="pillar-title">Velocidade Dedicada</div><div class="pillar-desc">Links simétricos exclusivos para o seu evento. Sem compartilhamento, sem gargalos.</div></div>
+            <div class="pillar-card"><div class="pillar-icon">🛡️</div><div class="pillar-title">SLA Garantido</div><div class="pillar-desc">Monitoramento em tempo real 24/7 com suporte técnico presencial durante o evento.</div></div>
+            <div class="pillar-card"><div class="pillar-icon">🔄</div><div class="pillar-title">Redundância Total</div><div class="pillar-desc">Múltiplos links em operação simultânea. Failover automático garante continuidade.</div></div>
+          </div>
+          <div class="about-stats">
+            <div class="stat-cell"><div class="stat-num">200<span>+</span></div><div class="stat-label">Eventos realizados</div></div>
+            <div class="stat-cell"><div class="stat-num">99<span>.9%</span></div><div class="stat-label">Uptime médio</div></div>
+            <div class="stat-cell"><div class="stat-num">24<span>/7</span></div><div class="stat-label">Suporte técnico</div></div>
+            <div class="stat-cell"><div class="stat-num">10<span>G+</span></div><div class="stat-label">Capacidade de link</div></div>
+          </div>
+          <div>
+            <div class="about-clients-title">Nossas soluções</div>
+            <div class="about-services-grid">
+              <div class="about-service-item"><div class="about-service-dot"></div><div><div class="about-service-text">Fibra Óptica Dedicada</div><div class="about-service-sub">Links simétricos de alta capacidade com instalação no local</div></div></div>
+              <div class="about-service-item"><div class="about-service-dot"></div><div><div class="about-service-text">Starlink Business</div><div class="about-service-sub">Cobertura via satélite para locais remotos ou sem infraestrutura</div></div></div>
+              <div class="about-service-item"><div class="about-service-dot"></div><div><div class="about-service-text">Links 4G / 5G</div><div class="about-service-sub">Conectividade móvel de alta performance com múltiplos carriers</div></div></div>
+              <div class="about-service-item"><div class="about-service-dot"></div><div><div class="about-service-text">Wi-Fi Gerenciado</div><div class="about-service-sub">Redes sem fio estruturadas com cobertura e controle total</div></div></div>
+            </div>
+          </div>
+          <div style="background:linear-gradient(135deg,var(--navy) 0%,#0a2a5e 100%);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;border:1px solid rgba(56,182,255,0.2);">
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#38b6ff;margin-bottom:8px;">Cases de Sucesso</div>
+              <div style="font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;line-height:1.2;margin-bottom:10px;">Conheça todos os eventos<br>que já atendemos.</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;">Grandes marcas, feiras, congressos e shows. Veja como a EasyLink entregou conectividade profissional em cada desafio.</div>
+            </div>
+            <div style="flex-shrink:0;text-align:center;">
+              <div style="background:rgba(56,182,255,0.12);border:1.5px solid rgba(56,182,255,0.35);border-radius:10px;padding:16px 22px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 54" height="32" role="img" aria-label="easylink" style="display:block;margin-bottom:10px;">
+                  <text y="46" font-family="Montserrat,sans-serif" font-weight="900" font-size="46" x="2">
+                    <tspan fill="#38b6ff">easy</tspan><tspan fill="#ffffff">link</tspan>
+                  </text>
+                </svg>
+                <div style="font-size:13px;font-weight:700;color:#38b6ff;letter-spacing:0.2px;">easylinkbrasil.com.br</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-footer">
+          <div class="about-footer-brand">easylink internet para eventos · Pág. 3 — ${proposalNumber}</div>
+          <div class="about-footer-contact">atendimento@easylinkbrasil.com.br · easylinkbrasil.com.br</div>
+        </div>
+      </div>
+
+    </div>`;
+
+  const canvas = document.getElementById('fiber-canvas');
+  if (canvas) drawFibers(canvas);
+}
+
+async function exportPDF() {
+  const nome = v('f_nome') || 'Cliente';
+  const evento = v('f_evento') || 'Evento';
+  const filename = `Proposta_EasyLink_${nome}_${evento}_${proposalNumber}.pdf`.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9_\-\.]/g,'');
+
+  const btn = document.querySelector('.btn-export');
+  btn.textContent = '⏳ Gerando PDF...';
+  btn.disabled = true;
+
+  const canvas = document.getElementById('fiber-canvas');
+  if (canvas) {
+    const img = canvas.toDataURL('image/png');
+    const tempImg = document.createElement('img');
+    tempImg.src = img;
+    tempImg.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0;';
+    canvas.replaceWith(tempImg);
+  }
+
+  const W = 794, H = 1122;
+  try {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit: 'px', format: [W, H], orientation: 'portrait', hotfixes: ['px_scaling'] });
+    const pages = [
+      document.querySelector('.proposal-cover'),
+      document.querySelector('.proposal-details'),
+      document.querySelector('.proposal-about'),
+    ];
+    for (let i = 0; i < pages.length; i++) {
+      const el = pages[i];
+      if (!el) continue;
+      const cvs = await html2canvas(el, { scale: 2, useCORS: true, logging: false, width: W, height: H, windowWidth: W });
+      const imgData = cvs.toDataURL('image/jpeg', 0.97);
+      if (i > 0) pdf.addPage([W, H]);
+      pdf.addImage(imgData, 'JPEG', 0, 0, W, H);
+    }
+    pdf.save(filename);
+    showToast('✅', `PDF "${filename}" exportado!`);
+  } catch(e) {
+    console.error(e);
+    showToast('❌', 'Erro ao gerar o PDF. Tente novamente.');
+  } finally {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Exportar PDF`;
+    btn.disabled = false;
+    update();
+  }
+}
+
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.querySelector('.toast-icon').textContent = icon;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+function resetForm() {
+  ['f_nome','f_cnpj','f_contato','f_tel','f_email','f_evento','f_local','f_data','f_descricao','f_pagamento','f_obs'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = el.type === 'number' ? '7' : '';
+  });
+  document.getElementById('f_validade').value = '7';
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  selectedServices = []; rows = []; rowCounter = 0;
+  proposalNumber = generateProposalNumber();
+  renderRows(); update();
+}
+
+document.getElementById('f_cnpj').addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'').slice(0,14);
+  if (v.length > 12) v = v.slice(0,2)+'.'+v.slice(2,5)+'.'+v.slice(5,8)+'/'+v.slice(8,12)+'-'+v.slice(12);
+  else if (v.length > 8) v = v.slice(0,2)+'.'+v.slice(2,5)+'.'+v.slice(5,8)+'/'+v.slice(8);
+  else if (v.length > 5) v = v.slice(0,2)+'.'+v.slice(2,5)+'.'+v.slice(5);
+  else if (v.length > 2) v = v.slice(0,2)+'.'+v.slice(2);
+  this.value = v; update();
+});
+</script>
+</body>
+</html>
