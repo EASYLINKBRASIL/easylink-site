@@ -86,6 +86,9 @@ h1{font-family:var(--f);font-size:clamp(40px,6.5vw,80px);font-weight:900;line-he
 .hero-price strong{color:var(--neon);font-size:22px;font-weight:800}
 .hero-price small{color:var(--muted);font-size:12px}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:up .6s .28s ease both}
+.hero-dl{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--neon);font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(56,182,255,.35);padding-bottom:2px;animation:up .6s .34s ease both}
+.hero-dl:hover{border-bottom-color:var(--neon)}
+.hero-dl span{color:var(--muted);font-weight:500}
 .btn-p{background:var(--neon);color:#060d14;padding:14px 30px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:box-shadow .2s,transform .2s;letter-spacing:.02em}
 .btn-p:hover{box-shadow:0 0 30px rgba(56,182,255,0.45);transform:translateY(-2px)}
 .btn-g{border:1px solid var(--border2);color:var(--text);padding:14px 30px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
@@ -405,6 +408,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
       <a href="https://api.whatsapp.com/send?phone=551141936140&text=Quero%20conhecer%20a%20solu%C3%A7%C3%B5es%20para%20o%20meu%20evento." class="btn-p" target="_blank" rel="noopener">💬 Faça uma cotação agora</a>
       <a href="#contato" class="btn-g">Preencher formulário →</a>
     </div>
+    <a href="/apresentacao-comercial-easylink.pdf" download="Apresentacao-Comercial-easylink.pdf" onclick="typeof gtag==='function'&&gtag('event','download_apresentacao')" class="hero-dl">📄 Baixe nossa apresentação comercial <span>(PDF)</span></a>
   </div>
 </section>
 
@@ -501,7 +505,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
         <p>Fundada em 2024, a easylink é especializada em fornecer soluções de internet para eventos de todos os portes em São Paulo e no Brasil. Somos referência em wi-fi profissional, link dedicado e conectividade para eventos. Com infraestrutura moderna e tecnologia de ponta, nos destacamos por oferecer conexões estáveis e rápidas, garantindo que a comunicação e o acesso à rede sejam perfeitos, mesmo em ambientes de alta demanda.</p>
         <p>Com foco em excelência, segurança e flexibilidade, a easylink se adapta às necessidades específicas de cada cliente, oferecendo desde conexões temporárias para eventos corporativos, esportivos e culturais até soluções completas para feiras e exposições de grande escala.</p>
         <p>Seja qual for o tamanho do seu evento, conte com a easylink para proporcionar uma experiência digital fluida e confiável.</p>
-        <a href="#contato" class="btn-p" style="margin-top:28px;width:fit-content">Fale com nossa equipe →</a>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px">
+          <a href="#contato" class="btn-p" style="width:fit-content">Fale com nossa equipe →</a>
+          <a href="/apresentacao-comercial-easylink.pdf" download="Apresentacao-Comercial-easylink.pdf" onclick="typeof gtag==='function'&&gtag('event','download_apresentacao')" class="btn-g" style="width:fit-content">📄 Baixar apresentação comercial (PDF)</a>
+        </div>
       </div>
     </div>
   </div>
@@ -884,7 +891,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 
     </div>
     <div class="ft-col">
       <h4>Empresa</h4>
-      <ul><li><a href="#sobre">Quem somos</a></li><li><a href="#cases">Cases</a></li><li><a href="#depoimentos">Depoimentos</a></li><li><a href="#faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="#contato">Contato</a></li></ul>
+      <ul><li><a href="#sobre">Quem somos</a></li><li><a href="#cases">Cases</a></li><li><a href="#depoimentos">Depoimentos</a></li><li><a href="#faq">FAQ</a></li><li><a href="/blog">Blog</a></li><li><a href="#contato">Contato</a></li><li><a href="/apresentacao-comercial-easylink.pdf" download="Apresentacao-Comercial-easylink.pdf" onclick="typeof gtag==='function'&&gtag('event','download_apresentacao')">Apresentação comercial (PDF)</a></li></ul>
     </div>
   </div>
   <div class="ft-bottom">
